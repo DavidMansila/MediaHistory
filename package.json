@@ -1,5 +1,27 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.7"
-  }
+    "@supabase/supabase-js": "^2.50.2",
+    "bootstrap": "^5.3.7",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "supabase": "^2.26.9"
+  },
+  "name": "mediahistory",
+  "version": "1.0.0",
+  "description": "Historial de Reproduccion y Control",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arahantarhat/MediaHistory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arahantarhat/MediaHistory/issues"
+  },
+  "homepage": "https://github.com/arahantarhat/MediaHistory#readme"
 }
