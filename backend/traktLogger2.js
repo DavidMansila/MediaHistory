@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch'; // Optional in Node 18+, but safe to include
@@ -68,7 +67,21 @@ async function insertIfNotExists(table, idField, newItems) {
         console.log(`✅ Successfully inserted into ${table}`);
       }
     } else {
-      console.log(`⏭️ Skipping existing entry for ${id} in ${table}`);
+      if (table === 'playback_progress') {
+        // Update the row if it exists for playback_progress
+        console.log(`✏️ Updating existing entry for ${id} in ${table}`);
+        const { error: updateError } = await supabase
+          .from(table)
+          .update(item)
+          .eq(idField, id);
+        if (updateError) {
+          console.error(`❌ Update error (${table}):`, updateError.message);
+        } else {
+          console.log(`✅ Successfully updated entry in ${table}`);
+        }
+      } else {
+        console.log(`⏭️ Skipping existing entry for ${id} in ${table}`);
+      }
     }
   }
 }
