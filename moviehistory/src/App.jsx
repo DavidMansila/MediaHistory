@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HistoryList from './components/HistoryList';
 import Statistics from './components/Stadistics';
 import MobileNav from './components/MovilNav';
+import axios from "axios";
 import './index.css';
 
 export default function App() {
-  const [history] = useState([
+  const [history, setHistory] = useState([
     { 
       id: 1, 
       title: 'Inception', 
@@ -96,6 +97,63 @@ export default function App() {
       isBookmarked: true
     }
   ]);
+
+  const TMDB_API_KEY = "2f0037ff8b09c5076d74973fd87e7f16";
+  const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
+  const mapBackendToHistoryItem = (item, posterPath = '') => {
+    const movie = item.raw_json?.movie || {};
+    return {
+      id: item.id,
+      title: item.title || movie.title || 'Sin título',
+      type: item.type === 'movie' ? 'movie' : 'tv',
+      year: movie.year || null,
+      genre: movie.genres ? movie.genres.join(', ') : '',
+      totalTime: 7200,
+      currentTime: Math.round((item.progress || 0) * (7200 / 100)),
+      lastViewed: item.paused_at ? new Date(item.paused_at).toLocaleDateString() : '',
+      thumbnail: posterPath ? `${IMAGE_BASE_URL}${posterPath}` : '',
+      rating: null,
+      isBookmarked: false,
+      season: item.season,
+      episode: item.episode,
+      episodeTitle: '',
+    };
+  };
+
+  useEffect(() => {
+  const fetchHistory = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:3001/api/playback-progress');
+      const historyWithPosters = await Promise.all(
+        data.map(async item => {
+          const tmdbId = item.raw_json?.movie?.ids?.tmdb;
+          let posterPath = '';
+          if (tmdbId) {
+            try {
+              const tmdbRes = await axios.get(
+                `https://api.themoviedb.org/3/movie/${tmdbId}`,
+                { params: { api_key: TMDB_API_KEY, language: 'es-ES' } }
+              );
+              posterPath = tmdbRes.data.poster_path; 
+            } catch (err) {
+              console.warn(`Error al obtener póster TMDB para ID ${tmdbId}:`, err);
+            }
+          }
+
+          return mapBackendToHistoryItem(item, posterPath);
+        })
+      );
+
+      setHistory(historyWithPosters);
+    } catch (error) {
+      console.error('Error fetching history:', error);
+    }
+  };
+
+  fetchHistory();
+}, []);
+
 
   return (
     <div className="d-flex flex-column min-vh-100">

@@ -1,9 +1,11 @@
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
+import cors from 'cors';
 import fetch from 'node-fetch'; // Optional in Node 18+, but safe to include
 
 const app = express();
 const PORT = 3001;
+app.use(cors());
 
 // === Configuration ===
 
@@ -131,6 +133,25 @@ async function runSync() {
 
   await insertIfNotExists('playback_progress', 'trakt_id', transformedPlayback);
 }
+
+// ...existing code...
+
+app.get('/api/playback-progress', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('playback_progress')
+      .select('*')
+      .order('paused_at', { ascending: false });
+
+    if (error) throw error;
+   
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ...existing code...
 
 // === Express endpoint ===
 
