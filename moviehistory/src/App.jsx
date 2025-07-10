@@ -151,7 +151,7 @@ export default function App() {
               <h2 className="section-title">Contenidos</h2>
             </div>
             
-            <HistoryList history={history} />
+            <HistoryList history={history}/>
           </div>
         ) : (
           <Control onBack={() => setCurrentView('history')} />

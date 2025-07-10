@@ -3,7 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import cors from "cors";
 import fetch from "node-fetch";
 
-
 const app = express();
 const PORT = 3001;
 app.use(cors());

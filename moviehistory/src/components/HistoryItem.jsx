@@ -56,9 +56,9 @@ export default function HistoryItem({ item }) {
               </div>
               
               <div className="d-flex">
-                <button className="btn btn-sm btn-outline-danger">
+                {/* <button className="btn btn-sm btn-outline-danger">
                   <FaTrash />
-                </button>
+                </button> */}
               </div>
             </div>
             
