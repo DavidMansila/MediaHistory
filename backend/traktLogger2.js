@@ -134,7 +134,7 @@ async function runSync() {
   await insertIfNotExists('playback_progress', 'trakt_id', transformedPlayback);
 }
 
-// ...existing code...
+
 
 app.get('/api/playback-progress', async (req, res) => {
   try {
@@ -151,7 +151,7 @@ app.get('/api/playback-progress', async (req, res) => {
   }
 });
 
-// ...existing code...
+
 
 // === Express endpoint ===
 

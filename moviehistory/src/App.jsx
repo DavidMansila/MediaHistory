@@ -122,37 +122,37 @@ export default function App() {
   };
 
   useEffect(() => {
-  const fetchHistory = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:3001/api/playback-progress');
-      const historyWithPosters = await Promise.all(
-        data.map(async item => {
-          const tmdbId = item.raw_json?.movie?.ids?.tmdb;
-          let posterPath = '';
-          if (tmdbId) {
-            try {
-              const tmdbRes = await axios.get(
-                `https://api.themoviedb.org/3/movie/${tmdbId}`,
-                { params: { api_key: TMDB_API_KEY, language: 'es-ES' } }
-              );
-              posterPath = tmdbRes.data.poster_path; 
-            } catch (err) {
-              console.warn(`Error al obtener póster TMDB para ID ${tmdbId}:`, err);
+    const fetchHistory = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:3001/api/playback-progress');
+        const historyWithPosters = await Promise.all(
+          data.map(async item => {
+            const tmdbId = item.raw_json?.movie?.ids?.tmdb;
+            let posterPath = '';
+            if (tmdbId) {
+              try {
+                const tmdbRes = await axios.get(
+                  `https://api.themoviedb.org/3/movie/${tmdbId}`,
+                  { params: { api_key: TMDB_API_KEY, language: 'es-ES' } }
+                );
+                posterPath = tmdbRes.data.poster_path; 
+              } catch (err) {
+                console.warn(`Error al obtener póster TMDB para ID ${tmdbId}:`, err);
+              }
             }
-          }
 
-          return mapBackendToHistoryItem(item, posterPath);
-        })
-      );
+            return mapBackendToHistoryItem(item, posterPath);
+          })
+        );
 
-      setHistory(historyWithPosters);
-    } catch (error) {
-      console.error('Error fetching history:', error);
-    }
-  };
+        setHistory(historyWithPosters);
+      } catch (error) {
+        console.error('Error fetching history:', error);
+      }
+    };
 
-  fetchHistory();
-}, []);
+    fetchHistory();
+  }, []);
 
 
   return (
