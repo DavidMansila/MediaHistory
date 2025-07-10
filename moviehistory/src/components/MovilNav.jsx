@@ -1,30 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { FaHome, FaHistory, FaTv } from 'react-icons/fa';
 
-export default function MobileNav() {
-  const [activeItem, setActiveItem] = useState('inicio');
-  
-  const navItems = [
-    { id: 'inicio', icon: 'home', label: 'Inicio' },
-    { id: 'Control', icon: 'Control', label: 'Control' },
-    { id: 'Configuración', icon: 'Configuración', label: 'Configuración' }
-  ];
-  
+export default function MobileNav({ setCurrentView }) {
   return (
-    <nav className="mobile-nav">
-      {navItems.map(item => (
-        <a 
-          key={item.id}
-          href="#" 
-          className={`mobile-nav-item ${activeItem === item.id ? 'active' : ''}`}
-          onClick={(e) => {
-            e.preventDefault();
-            setActiveItem(item.id);
-          }}
-        >
-          <i className={`fas fa-${item.icon}`}></i>
-          <span>{item.label}</span>
-        </a>
-      ))}
+    <nav className="mobile-nav d-lg-none fixed-bottom bg-white shadow-lg py-2">
+      <div className="container">
+        <div className="d-flex justify-content-around">
+          <button 
+            className="btn btn-link text-dark d-flex flex-column align-items-center"
+            onClick={() => setCurrentView('history')}
+          >
+            <FaHome className="fs-5" />
+            <span className="small">Inicio</span>
+          </button>
+          
+          <button 
+            className="btn btn-link text-dark d-flex flex-column align-items-center"
+            onClick={() => setCurrentView('history')}
+          >
+            <FaHistory className="fs-5" />
+            <span className="small">Historial</span>
+          </button>
+          
+          <button 
+            className="btn btn-link text-primary d-flex flex-column align-items-center"
+            onClick={() => setCurrentView('control')}
+          >
+            <FaTv className="fs-5" />
+            <span className="small">Control</span>
+          </button>
+        </div>
+      </div>
     </nav>
   );
 }

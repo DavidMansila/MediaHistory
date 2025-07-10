@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import HistoryList from './components/HistoryList';
 import Statistics from './components/Stadistics';
 import MobileNav from './components/MovilNav';
+import Control from './components/Control';
 import axios from "axios";
 import './index.css';
 
@@ -11,6 +12,7 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentView, setCurrentView] = useState('history');
 
   const TMDB_API_KEY = "2f0037ff8b09c5076d74973fd87e7f16";
   const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -136,24 +138,28 @@ export default function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header />
+      <Header setCurrentView={setCurrentView} currentView={currentView} />
       
       <main className="main-content">
-        <div className="container">
-          <h1 className="section-title">Mi Historial</h1>
-          
-          <Statistics history={history} />
-          
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="section-title">Contenidos</h2>
+        {currentView === 'history' ? (
+          <div className="container">
+            <h1 className="section-title">Mi Historial</h1>
+            
+            <Statistics history={history} />
+            
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h2 className="section-title">Contenidos</h2>
+            </div>
+            
+            <HistoryList history={history} />
           </div>
-          
-          <HistoryList history={history} />
-        </div>
+        ) : (
+          <Control onBack={() => setCurrentView('history')} />
+        )}
       </main>
       
       <Footer />
-      <MobileNav />
+      <MobileNav setCurrentView={setCurrentView} currentView={currentView} />
     </div>
   );
 }
