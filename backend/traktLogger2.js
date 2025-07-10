@@ -1,7 +1,7 @@
 
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
-import fetch from 'node-fetch'; // Optional in Node 18+, but safe to include
+import fetch from 'node-fetch';
 
 const app = express();
 const PORT = 3001;
