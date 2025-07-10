@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import HistoryItem from './HistoryItem';
 
-export default function HistoryList({ history }) {
+export default function HistoryList({ history, setCurrentView }) {
   const [filter, setFilter] = useState('all');
   
   const filteredHistory = filter === 'all' 
     ? history 
     : history.filter(item => item.type === filter);
   
-  if (!filteredHistory.length) {
-    return (
-      <div className="empty-state">
-        <div className="mb-3">
-          <i className="bi bi-film fs-1 text-muted"></i>
-        </div>
-        <h5>No hay historial aún...</h5>
-        <p className="text-muted mb-4">Comienza a ver películas y series para que aparezcan aquí</p>
-        <button className="btn btn-primary">Explorar catálogo</button>
-      </div>
-    );
-  }
+  // if (!filteredHistory.length) {
+  //   return (
+  //     <div className="empty-state">
+  //       <div className="mb-3">
+  //         <i className="bi bi-film fs-1 text-muted"></i>
+  //       </div>
+  //       <h5>No hay historial aún...</h5>
+  //       <p className="text-muted mb-4">Comienza a ver películas y series para que aparezcan aquí</p>
+  //         <button 
+  //           className="btn btn-primary"
+  //           onClick={() => setCurrentView('history')}
+  //         >
+  //         Explorar catálogo
+  //       </button>
+  //     </div>
+  //   );
+  // }
   
   return (
     <div>
