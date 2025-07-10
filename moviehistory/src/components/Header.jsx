@@ -54,9 +54,9 @@ export default function Header({ setCurrentView, currentView }) {
                     <i className="fas fa-tv me-1 desktop-only"></i> Control 
                   </a>
                 </li>
-                <li className="nav-item ms-2 desktop-only">
+                {/* <li className="nav-item ms-2 desktop-only">
                   <a className="btn btn-outline" href="#"><i className="fas fa-cog me-1"></i> Configuración</a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
