@@ -7,6 +7,7 @@ import MobileNav from './components/MovilNav';
 import Control from './components/Control';
 import axios from "axios";
 import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function App() {
   const [history, setHistory] = useState([]);
