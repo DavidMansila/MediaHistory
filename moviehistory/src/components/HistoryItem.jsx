@@ -84,7 +84,7 @@ export default function HistoryItem({ item }) {
                 Última vista: {item.lastViewed}
               </span>
               
-              <div className="d-flex">
+              {/* <div className="d-flex">
                 {item.isBookmarked && (
                   <span className="badge bg-warning text-dark me-2">
                     Guardado
@@ -93,7 +93,7 @@ export default function HistoryItem({ item }) {
                 <span className="badge bg-light text-dark">
                   {item.rating}/10
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
