@@ -32,9 +32,9 @@ export default function HistoryItem({ item }) {
             </span>
           </div>
           
-          <button className="btn btn-primary w-100 rounded-0 rounded-bottom">
+          {/*<button className="btn btn-primary w-100 rounded-0 rounded-bottom">
             <FaPlay className="me-2" /> Continuar
-          </button>
+          </button>*/}
         </div>
         
         <div className="col-md-8">
